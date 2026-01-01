@@ -1,0 +1,1 @@
+File contains basics about creating dockerfile/image and it's syntax
