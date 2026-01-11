@@ -39,7 +39,6 @@ CMD jupyter notebook --no-browser --allow-root --ip 0.0.0.0
 # While creating an image, make sure to forward port and create volume
 # docker run -p 8888:8888 -v ./jupyter_data:/python/notebooks image_name
 # We are forwarding local host's port 8888 to container's 8888
-
 # Volume created on host side at ./jupyter_data and on container side at /python/notebooks
 # This is a bind mount
 
