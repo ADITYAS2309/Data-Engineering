@@ -1,0 +1,55 @@
+More about creating APIs:
+
+1. APIRouter(): 
+Used to organize and group related API endpoints instead of putting everything in big file.
+
+Eg: If you have 2 routes, sales and users, we create 2 .py files for each and define the following:
+
+#users.py
+
+router = APIRouter()
+
+@router.get("/")
+def get_users()
+    pass
+
+@router.post("/")
+def post_users()
+    pass
+
+In the main.py file, add the following:
+app.include_router(users_router, prefix="/users", tag = ['Users'])
+
+The 'prefix' will basically set the endpoint
+The 'tag' will group related endpoints together instead of appear all under one in UI
+
+2. async
+
+Allows server to handle thousands of waiting tasks concurrently (data base queries/calling another api etc.)
+The server can work on other requests while waiting for slow operations
+
+"Pause the function until result comes back and allow other work to run"
+
+Does not help in CPU heavy functions like high computation tasks
+
+Example:
+Sync:
+Take order --> Wait in kitchen --> Serve food --> Next table
+
+Async:
+Take order (table 1)
+Kitchen cooking
+
+Take order (table 2)
+Kitchen cooking
+
+Serve table 1
+Serve table 2
+
+Code example:
+
+async def get_data():
+    result = await fetch()
+    return result
+
+'Await' is used when calling async operations, wont run without it 
