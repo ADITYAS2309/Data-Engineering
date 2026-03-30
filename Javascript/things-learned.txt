@@ -1,0 +1,151 @@
+Learned basics of Javascript
+- let
+- const
+- str, number, boolean, undefined, nulls
+- objects, arrays, functions
+- console.log()
+
+Typescript:
+
+-any: Allows varaible to have any datatype, removes purpose/benefits of Typescript
+
+-arrays:
+JS allows each element can be of any type, while TS doesnt
+
+We use type annotation at compile time itself:
+eg: let numbers : number[] = [1,2,3]
+If we dont specify, it ll automatically guess the type
+A [] means 'any' type
+
+-- tupple:
+A fixed length array where each element has a particular type 
+eg: let user: [number, string] = [1, 'Aditya']
+
+-- enums:
+A list of related constants
+eg: enum Size (small = 1, medium, large)
+
+Meduim and large automatically assigned 2,3 and so on
+IF we want to assign string, we need to do them explicitly
+
+usage:
+let mySize : Size = Size.medium 
+
+Note: If we defined enum using const, the compiled code is js with be simpler/cleaner
+
+-- functions:
+We should annotate function's parameters and return type
+TS automatically detects the return type, but still good practice to define 
+
+eg: function calcTax(income: Number): number {
+}
+If the function doesnt return anything, we should specify 'void'
+Helps us getting a compile error if we forget to return 
+We can change in config to detect the ununsed parameters and unused variables
+
+noImplicitReturns...
+noUnusedLocals...
+noUnusedParameters...
+
+TS expects to pass same number of parameters as defined in function 
+To make a parameter option, do as follows:
+    function calcTax(income : number, taxyear?: number): number {}
+    Or define a default value for the parameter in the func 
+
+-- objects
+Objects are dynamic in JS but not in TS; meaning we can add more attributes/parameters but not in TS 
+If not all parameters are used in initialization, we can make the parameter option
+We can also define a method in the type alias:
+    - => means takes these parameters and returns following data type:
+    
+let employee :{
+    id: number,
+    name?: str,
+    greet: (age:number) => void
+} = {id = 1};
+
+
+-- type alias
+Reuse user defined types, eg: creating 2 object with same properties.
+This is how we use type alias:
+
+type employee = {
+    id: number,
+    name: string 
+}
+
+left emp1 : employee = {
+    id : 1,
+    name : "Aditya S."
+}
+
+This can be used in multiple places
+
+-- union types
+Give function or variable more than one type.
+eg:
+function kgtolbs(weight: number | str){
+    if (type weight === number)
+        return weight*2.22
+    else:
+        return parseInt(weight)*2.22    
+};
+
+kgtolbs(10);
+kgtolbs('10kgs')
+
+-- intersection types 
+Makes variable be on more than 1 type 
+eg:
+type Drag = {
+    drag: () => void 
+    }
+
+type Resize = {
+    Resize: () => void 
+    }    
+
+type Widget = Drag & Resize 
+
+let textbox: Widget = {
+    drag: () => {}
+    Resize: () => {}
+}
+
+-- literal types:
+Limit the values of a variable; exact or specific value 
+eg:
+let quantity: 50 | 100 = 100
+
+or we can use type alias to create a custom type 
+
+-- null and undefined types:
+
+-- chaining operator "?."
+Only access this if it exists else return undefined instead of crashing/error
+eg of crash:
+    const user = undefined;
+    console.log(user.name);
+    --> gives error since no name property
+
+    solution:
+    consolve.log(user?.name);
+    --> returns undefined, no crash
+
+    Chaining multiple times:
+    const user = {
+    profile: {
+        name: "Alice"
+    }
+    };
+    console.log(user?.profile?.name);
+
+    This repalces the old way:
+    if (user && user.profile && user.profile.name) {
+    console.log(user.profile.name);
+    }
+
+    -- notes:
+    This doenst crash/error since it automatically returns undefined:
+    const user = {};
+    console.log(user.name); // ?
